@@ -7,7 +7,8 @@
   "scripts": {
     "start": "NODE_PATH=./build node build/index.js",
     "build": "tsc -p .",
-    "dev": "nodemon src/index.ts"
+    "dev": "nodemon src/index.ts",
+    "lint": "eslint --ext .ts src/"
   },
   "author": "",
   "license": "ISC",
@@ -21,6 +22,13 @@
     "@types/node": "^18.11.18",
     "@types/nodemailer": "^6.4.7",
     "@types/uuid": "^9.0.0",
+    "@typescript-eslint/eslint-plugin": "^5.48.1",
+    "eslint": "^8.32.0",
+    "eslint-config-standard-with-typescript": "^27.0.1",
+    "eslint-plugin-import": "^2.27.4",
+    "eslint-plugin-n": "^15.6.1",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-promise": "^6.1.1",
     "nodemon": "^2.0.7",
     "prisma": "^4.8.1",
     "ts-node": "^10.9.1",

@@ -16,7 +16,7 @@ const authMiddleware = async (
 			const verificationResponse = await TokenService.validateAccessToken<User>(
 				Authorization
 			);
-			const userId = verificationResponse!.id;
+			const userId = verificationResponse?.id;
 
 			const findUser = await prisma.user.findUnique({
 				where: { id: Number(userId) },
