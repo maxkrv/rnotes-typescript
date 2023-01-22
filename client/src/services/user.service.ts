@@ -1,12 +1,13 @@
 import api from "./api";
-import { AuthQuery, AuthResponse } from "../types/Auth";
+import { AuthResponse } from "../types/Auth";
+import { FormSchemaType } from "../utils/formSchema";
 
 export const userService = {
-	register: async (user: AuthQuery) => {
+	register: async (user: FormSchemaType) => {
 		const response = await api.post<AuthResponse>("/register", user);
 		return response.data;
 	},
-	login: async (user: AuthQuery) => {
+	login: async (user: FormSchemaType) => {
 		const response = await api.post<AuthResponse>("/login", user);
 		return response.data;
 	},
