@@ -15,8 +15,8 @@ export const userService = {
 		const response = await api.post<{ message: string }>("/logout");
 		return response.data;
 	},
-	refresh: async () => {
-		const response = await api.get<AuthResponse>("/refresh");
-		return response.data;
-	},
+	// refresh: async () => {
+	// 	const response = await api.get<AuthResponse>("/refresh");
+	// 	return response.data;
+	// },
 };
