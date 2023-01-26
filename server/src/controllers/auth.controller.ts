@@ -87,7 +87,7 @@ class AuthController {
 				maxAge: MAX_AGE,
 				httpOnly: true,
 			});
-			res.json({ message: "success" });
+			res.json(userData);
 		} catch (error) {
 			next(error);
 		}
