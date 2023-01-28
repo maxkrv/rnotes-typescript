@@ -2,7 +2,9 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AuthResponse } from "../../types/Auth";
 import { IUser } from "../../types/IUser";
 
-interface InitialState extends AuthResponse {
+interface InitialState {
+	accessToken: string;
+	refreshToken: string;
 	user: IUser;
 	isAuth: boolean;
 }
@@ -26,5 +28,5 @@ const userSlice = createSlice({
 	},
 });
 
-export const { setUser } = userSlice.actions;
+export const { setUser, removeUser } = userSlice.actions;
 export default userSlice.reducer;
