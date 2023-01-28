@@ -7,6 +7,7 @@ import { DehydratedState, QueryClient } from "@tanstack/query-core";
 import { useState } from "react";
 import { Hydrate, QueryClientProvider } from "@tanstack/react-query";
 import Layout from "../components/layout";
+import AuthProvider from "../providers/authProvider";
 
 export default function App({
 	Component,
@@ -28,9 +29,11 @@ export default function App({
 			<Hydrate state={pageProps.dehydratedState}>
 				<Provider store={store}>
 					<ChakraProvider>
-						<Layout>
-							<Component {...pageProps} />
-						</Layout>
+						<AuthProvider>
+							<Layout>
+								<Component {...pageProps} />
+							</Layout>
+						</AuthProvider>
 					</ChakraProvider>
 				</Provider>
 			</Hydrate>
