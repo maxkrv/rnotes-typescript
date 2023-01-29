@@ -14,12 +14,17 @@ import {
 import { useMutation } from "@tanstack/react-query";
 import { userService } from "../../services/user.service";
 import { AuthResponse } from "../../types/Auth";
+import { setUser } from "../../store/reducers/user.slice";
+import { useAppDispatch } from "../../hooks/redux";
+import { useRouter } from "next/router";
 
 interface FormWrapperProps extends ComponentPropsWithoutRef<"form"> {
 	formAction: "login" | "register";
 }
 
 const FormWrapper: FC<FormWrapperProps> = ({ formAction }) => {
+	const router = useRouter();
+	const dispatch = useAppDispatch();
 	const toast = useToast();
 	const {
 		handleSubmit,
@@ -33,6 +38,10 @@ const FormWrapper: FC<FormWrapperProps> = ({ formAction }) => {
 		mutationKey: ["login"],
 		mutationFn: ({ email, password }) =>
 			userService.login({ email: email, password: password }),
+		onSuccess: (data) => {
+			dispatch(setUser(data));
+			router.push("/app");
+		},
 		onError: (error) =>
 			toast({
 				title: error.response.data.message,
@@ -45,6 +54,10 @@ const FormWrapper: FC<FormWrapperProps> = ({ formAction }) => {
 		mutationKey: ["register"],
 		mutationFn: ({ email, password }) =>
 			userService.register({ email: email, password: password }),
+		onSuccess: (data) => {
+			dispatch(setUser(data));
+			router.push("/app");
+		},
 		onError: (error) =>
 			toast({
 				title: error.response.data.message,
@@ -68,7 +81,9 @@ const FormWrapper: FC<FormWrapperProps> = ({ formAction }) => {
 			<Controller
 				name="email"
 				control={control}
-				render={({ field }) => <Input isInvalid={!!errors.email} {...field} />}
+				render={({ field }) => (
+					<Input type="email" isInvalid={!!errors.email} {...field} />
+				)}
 			/>
 			<FormHelperText>
 				{errors.email && (errors.email.message as string)}
@@ -81,7 +96,7 @@ const FormWrapper: FC<FormWrapperProps> = ({ formAction }) => {
 				name="password"
 				control={control}
 				render={({ field }) => (
-					<Input isInvalid={!!errors.password} {...field} />
+					<Input type="password" isInvalid={!!errors.password} {...field} />
 				)}
 			/>
 			<FormHelperText>
