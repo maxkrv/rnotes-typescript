@@ -49,7 +49,7 @@ model Todo {
 
 model Category {
   id        Int      @default(autoincrement()) @id
-  name      String
+  name      String   @unique
   color     String
   note      Note?    @relation(fields: [noteId], references: [id])
   todo      Todo?    @relation(fields: [todoId], references: [id])
