@@ -76,7 +76,7 @@ class NoteService {
 		}
 	}
 
-	public async updateNote({
+	public async updateNoteById({
 		id,
 		title,
 		content,

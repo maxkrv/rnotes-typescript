@@ -55,7 +55,7 @@ class NoteController {
 		}
 	}
 
-	public async updateNote(
+	public async updateNoteById(
 		req: Request<any, {}, NoteRequestWithId>,
 		res: Response,
 		next: NextFunction
@@ -67,7 +67,7 @@ class NoteController {
 				Authorization as string
 			);
 
-			const note = await NoteService.updateNote({
+			const note = await NoteService.updateNoteById({
 				...req.body,
 				userId: user?.id as number,
 				id: id,
