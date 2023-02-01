@@ -13,7 +13,6 @@ class NoteController {
 			);
 
 			const notes = await NoteService.getNotes(user?.id as number);
-			console.log(notes);
 			res.json(notes);
 		} catch (error) {
 			next(error);
