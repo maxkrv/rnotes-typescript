@@ -83,47 +83,50 @@ class NoteService {
 		categoryId,
 		userId,
 	}: NoteRequestWithId) {
-		if (categoryId) {
-			return prisma.note.update({
-				where: {
-					id,
-				},
-				data: {
-					title,
-					content,
-					category: {
-						connect: {
-							id: categoryId,
+		const user = await prisma.user.findUnique({
+			where: {
+				id: userId,
+			},
+			include: {
+				notes: true,
+			},
+		});
+
+		if (user?.notes.some((note) => note.id === id)) {
+			if (categoryId) {
+				return prisma.note.update({
+					where: {
+						id,
+					},
+					data: {
+						title,
+						content,
+						category: {
+							connect: {
+								id: categoryId,
+							},
 						},
 					},
-					user: {
-						connect: {
-							id: userId,
-						},
+					include: {
+						category: true,
 					},
-				},
-				include: {
-					category: true,
-				},
-			});
+				});
+			} else {
+				return prisma.note.update({
+					where: {
+						id,
+					},
+					data: {
+						title,
+						content,
+					},
+					include: {
+						category: true,
+					},
+				});
+			}
 		} else {
-			return prisma.note.update({
-				where: {
-					id,
-				},
-				data: {
-					title,
-					content,
-					user: {
-						connect: {
-							id: userId,
-						},
-					},
-				},
-				include: {
-					category: true,
-				},
-			});
+			throw new HttpException(404, "Note not found");
 		}
 	}
 

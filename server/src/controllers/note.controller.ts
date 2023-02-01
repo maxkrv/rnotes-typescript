@@ -56,11 +56,12 @@ class NoteController {
 	}
 
 	public async updateNote(
-		req: Request<{}, {}, NoteRequestWithId>,
+		req: Request<any, {}, NoteRequestWithId>,
 		res: Response,
 		next: NextFunction
 	) {
 		try {
+			const id = parseInt(req.params.id);
 			const Authorization = req.header("Authorization")?.split("Bearer ")[1];
 			const user = TokenService.validateAccessToken<User>(
 				Authorization as string
@@ -69,6 +70,7 @@ class NoteController {
 			const note = await NoteService.updateNote({
 				...req.body,
 				userId: user?.id as number,
+				id: id,
 			});
 			res.json(note);
 		} catch (error) {
