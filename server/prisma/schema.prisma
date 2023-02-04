@@ -28,35 +28,35 @@ model Token {
   createdAt    DateTime @default(now())
 }
 
-model Note {
-  id        Int       @default(autoincrement()) @id
-  title     String
-  content   String
-  user      User      @relation(fields: [userId], references: [id])
-  category  Category?
-  userId    Int
-  createdAt DateTime  @default(now())
-}
-
-model Todo {
-  id        Int       @default(autoincrement()) @id
-  title     String
-  isDone    Boolean   @default(false)
-  category  Category?
-  user      User      @relation(fields: [userId], references: [id])
-  userId    Int
-  createdAt DateTime  @default(now())
-}
-
 model Category {
   id        Int      @default(autoincrement()) @id
   name      String   @unique
   color     String
-  note      Note?    @relation(fields: [noteId], references: [id])
-  todo      Todo?    @relation(fields: [todoId], references: [id])
-  noteId    Int?     @unique
-  todoId    Int?     @unique
+  note      Note[]
+  todo      Todo[]
   user      User     @relation(fields: [userId], references: [id])
   userId    Int
   createdAt DateTime @default(now())
+}
+
+model Note {
+  id         Int       @default(autoincrement()) @id
+  title      String
+  content    String
+  user       User      @relation(fields: [userId], references: [id])
+  category   Category? @relation(fields: [categoryId], references: [id])
+  categoryId Int?
+  userId     Int
+  createdAt  DateTime  @default(now())
+}
+
+model Todo {
+  id         Int       @default(autoincrement()) @id
+  title      String
+  isDone     Boolean   @default(false)
+  category   Category? @relation(fields: [categoryId], references: [id])
+  categoryId Int?
+  user       User      @relation(fields: [userId], references: [id])
+  userId     Int
+  createdAt  DateTime  @default(now())
 }
