@@ -100,6 +100,9 @@ class TodoService {
 							},
 						},
 					},
+					include: {
+						category: true,
+					},
 				});
 			} else {
 				return prisma.todo.update({
@@ -109,6 +112,9 @@ class TodoService {
 					data: {
 						title,
 						isDone,
+					},
+					include: {
+						category: true,
 					},
 				});
 			}
