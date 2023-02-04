@@ -5,8 +5,10 @@ const api = axios.create({
 	withCredentials: true,
 });
 
-api.interceptors.response.use((config) => {
-	config.headers["Authorization"] = `Bearer ${localStorage.getItem("token")}`;
+api.interceptors.request.use((config) => {
+	config.headers["Authorization"] = `Bearer ${
+		typeof window !== "undefined" && localStorage.getItem("token")
+	}`;
 	return config;
 });
 
