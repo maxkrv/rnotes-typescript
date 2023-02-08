@@ -40,7 +40,7 @@ const FormWrapper: FC<FormWrapperProps> = ({ formAction }) => {
 			userService.login({ email: email, password: password }),
 		onSuccess: (data) => {
 			dispatch(setUser(data));
-			router.push("/app");
+			router.push("/notes");
 		},
 		onError: (error) =>
 			toast({
@@ -56,7 +56,7 @@ const FormWrapper: FC<FormWrapperProps> = ({ formAction }) => {
 			userService.register({ email: email, password: password }),
 		onSuccess: (data) => {
 			dispatch(setUser(data));
-			router.push("/app");
+			router.push("/notes");
 		},
 		onError: (error) =>
 			toast({
