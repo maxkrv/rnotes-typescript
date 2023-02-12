@@ -8,6 +8,8 @@ import { useState } from "react";
 import { Hydrate, QueryClientProvider } from "@tanstack/react-query";
 import Layout from "../components/layout";
 import AuthProvider from "../providers/authProvider";
+import SEO from "../../seo.config";
+import { DefaultSeo } from "next-seo";
 
 export default function App({
 	Component,
@@ -31,6 +33,7 @@ export default function App({
 					<ChakraProvider>
 						<AuthProvider>
 							<Layout>
+								<DefaultSeo {...SEO} />
 								<Component {...pageProps} />
 							</Layout>
 						</AuthProvider>
