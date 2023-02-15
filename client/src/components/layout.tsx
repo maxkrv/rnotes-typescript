@@ -57,9 +57,13 @@ const Layout: FC<ComponentPropsWithoutRef<"div">> = ({
 							To-dos
 						</Tab>
 					</TabList>
-					<TabPanels bg={bg} flex="1">
-						<TabPanel tabIndex={0}>{children}</TabPanel>
-						<TabPanel tabIndex={1}>{children}</TabPanel>
+					<TabPanels bg={bg} flex="1" height="100%">
+						<TabPanel tabIndex={0} height="100%" width="100%">
+							{children}
+						</TabPanel>
+						<TabPanel tabIndex={1} height="100%" width="100%">
+							{children}
+						</TabPanel>
 					</TabPanels>
 				</Tabs>
 			)}
