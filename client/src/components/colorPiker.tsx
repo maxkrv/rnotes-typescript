@@ -33,6 +33,9 @@ const ColorPiker: FC<ColorPikerProps> = ({
 					borderWidth={selectedColor === color ? "2px" : "0px"}
 					borderColor="black"
 					onClick={() => setSelectedColor(color)}
+					onKeyPress={(e) => {
+						if (e.key === "Enter" || e.key === "space") setSelectedColor(color);
+					}}
 					key={color}
 				/>
 			))}
