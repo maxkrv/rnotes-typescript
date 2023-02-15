@@ -22,6 +22,14 @@ const ColorPiker: FC<ColorPikerProps> = ({
 	selectedColor,
 	setSelectedColor,
 }) => {
+	const handleColorChange = (color: string) => {
+		if (selectedColor === color) {
+			setSelectedColor(undefined);
+		} else {
+			setSelectedColor(color);
+		}
+	};
+
 	return (
 		<Flex gap="5px" flexWrap="wrap">
 			{colors.map((color) => (
@@ -32,9 +40,10 @@ const ColorPiker: FC<ColorPikerProps> = ({
 					bg={color}
 					borderWidth={selectedColor === color ? "2px" : "0px"}
 					borderColor="black"
-					onClick={() => setSelectedColor(color)}
+					onClick={() => handleColorChange(color)}
 					onKeyPress={(e) => {
-						if (e.key === "Enter" || e.key === "space") setSelectedColor(color);
+						if (e.key === "Enter" || e.key === "space")
+							handleColorChange(color);
 					}}
 					key={color}
 				/>
