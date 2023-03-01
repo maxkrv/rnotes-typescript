@@ -58,10 +58,10 @@ const Layout: FC<ComponentPropsWithoutRef<"div">> = ({
 						</Tab>
 					</TabList>
 					<TabPanels bg={bg} flex="1" height="100%">
-						<TabPanel tabIndex={0} height="100%" width="100%">
+						<TabPanel height="100%" width="100%">
 							{children}
 						</TabPanel>
-						<TabPanel tabIndex={1} height="100%" width="100%">
+						<TabPanel height="100%" width="100%">
 							{children}
 						</TabPanel>
 					</TabPanels>
