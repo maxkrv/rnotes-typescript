@@ -1,6 +1,5 @@
 import axios from "axios";
 import { AuthResponse } from "../types/Auth";
-import { router } from "next/client";
 
 const api = axios.create({
 	baseURL: `${process.env.NEXT_PUBLIC_SERVER_URL}/api`,
@@ -33,7 +32,8 @@ api.interceptors.response.use(
 				localStorage.setItem("token", response.data.accessToken);
 				return api.request(originalRequest);
 			} catch (e) {
-				await router.push("/");
+				// eslint-disable-next-line no-console
+				console.log(e);
 			}
 		}
 		throw error;
