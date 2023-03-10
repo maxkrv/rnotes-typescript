@@ -11,5 +11,5 @@ export interface Note extends DefaultFields {
 export interface NoteRequest {
 	title: string;
 	content: string;
-	categoryID?: number;
+	categoryId?: number;
 }
