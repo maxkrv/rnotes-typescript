@@ -2,3 +2,7 @@ html, body, #__next {
     -webkit-tap-highlight-color: transparent;
     height: calc(100vh - calc(100vh - 100%));
 }
+
+.jodit-ui-input__input {
+    color: black;
+}
