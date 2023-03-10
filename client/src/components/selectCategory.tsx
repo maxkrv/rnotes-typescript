@@ -17,6 +17,7 @@ import {
 	PopoverTrigger,
 	useColorModeValue,
 	useDisclosure,
+	useToast,
 } from "@chakra-ui/react";
 import { RxTriangleDown } from "react-icons/rx";
 import Scrollbars from "react-custom-scrollbars-2";
@@ -47,6 +48,7 @@ const SelectCategory: FC<SelectCategoryProps> = ({
 	const bg = useColorModeValue("gray.300", "gray.600");
 	const border = useColorModeValue("gray.700", "gray.500");
 	const queryClient = useQueryClient();
+	const toast = useToast();
 	const {
 		isOpen: isPopoverOpen,
 		onClose: onPopoverClose,
@@ -65,6 +67,13 @@ const SelectCategory: FC<SelectCategoryProps> = ({
 	const categories = useQuery({
 		queryKey: ["categories"],
 		queryFn: () => categoryService.getCategories(),
+		onError: (error: any) =>
+			toast({
+				title: error.response.data.message,
+				status: "error",
+				isClosable: true,
+				duration: 5000,
+			}),
 	});
 	const deleteCategory = useMutation({
 		mutationKey: ["deleteCategory"],
@@ -72,6 +81,13 @@ const SelectCategory: FC<SelectCategoryProps> = ({
 		onSuccess: async () => {
 			await queryClient.invalidateQueries({ queryKey: ["categories"] });
 		},
+		onError: (error: any) =>
+			toast({
+				title: error.response.data.message,
+				status: "error",
+				isClosable: true,
+				duration: 5000,
+			}),
 	});
 
 	const selectCategoryHandler = (

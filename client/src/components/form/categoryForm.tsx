@@ -6,6 +6,7 @@ import {
 	FormHelperText,
 	FormLabel,
 	Input,
+	useToast,
 } from "@chakra-ui/react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import ColorPiker from "../colorPiker";
@@ -34,6 +35,7 @@ const CategoryForm: FC<CategoryFormProps> = ({
 	...props
 }) => {
 	const queryClient = useQueryClient();
+	const toast = useToast();
 	const [color, setColor] = useState<string | undefined>(undefined);
 	const {
 		handleSubmit,
@@ -51,6 +53,13 @@ const CategoryForm: FC<CategoryFormProps> = ({
 			await queryClient.invalidateQueries({ queryKey: ["notes"] });
 			await queryClient.invalidateQueries({ queryKey: ["todos"] });
 		},
+		onError: (error) =>
+			toast({
+				title: error.response.data.message,
+				status: "error",
+				isClosable: true,
+				duration: 5000,
+			}),
 	});
 	const updateCategory = useMutation<Category, any, CategoryRequest>({
 		mutationKey: ["editCategory"],
@@ -61,6 +70,13 @@ const CategoryForm: FC<CategoryFormProps> = ({
 			await queryClient.invalidateQueries({ queryKey: ["notes"] });
 			await queryClient.invalidateQueries({ queryKey: ["todos"] });
 		},
+		onError: (error) =>
+			toast({
+				title: error.response.data.message,
+				status: "error",
+				isClosable: true,
+				duration: 5000,
+			}),
 	});
 
 	const onSubmit: SubmitHandler<FormCategorySchemaType> = (data) => {
