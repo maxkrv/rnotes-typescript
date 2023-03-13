@@ -26,15 +26,17 @@ import { Category } from "../types/Category";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { categoryService } from "../services/category.service";
 import CategoryForm from "./form/categoryForm";
+import { useAppDispatch } from "../hooks/redux";
+import { setCategory } from "../store/reducers/category.slice";
 
 interface SelectCategoryProps extends HTMLAttributes<HTMLDivElement> {
 	isHeader?: boolean;
 	showSelectedCategory?: boolean;
 	deleteControl?: boolean;
 	editControl?: boolean;
-	selectedCategory: Category | undefined;
+	selectedCategory?: Category | undefined;
 	// eslint-disable-next-line no-unused-vars
-	setSelectedCategory: (category: Category | undefined) => void;
+	setSelectedCategory?: (category: Category | undefined) => void;
 }
 
 const SelectCategory: FC<SelectCategoryProps> = ({
@@ -48,6 +50,7 @@ const SelectCategory: FC<SelectCategoryProps> = ({
 	const bg = useColorModeValue("gray.300", "gray.600");
 	const border = useColorModeValue("gray.700", "gray.500");
 	const queryClient = useQueryClient();
+	const dispatch = useAppDispatch();
 	const toast = useToast();
 	const {
 		isOpen: isPopoverOpen,
@@ -95,7 +98,11 @@ const SelectCategory: FC<SelectCategoryProps> = ({
 		category: Category | undefined
 	) => {
 		event.stopPropagation();
-		setSelectedCategory(category);
+		if (setSelectedCategory) {
+			setSelectedCategory(category);
+		} else {
+			dispatch(setCategory(category));
+		}
 		onPopoverClose();
 	};
 	const editCategoryHandler = (
@@ -112,7 +119,11 @@ const SelectCategory: FC<SelectCategoryProps> = ({
 	) => {
 		event.stopPropagation();
 		if (selectedCategory?.id === categoryId) {
-			setSelectedCategory(undefined);
+			if (setSelectedCategory) {
+				setSelectedCategory(undefined);
+			} else {
+				dispatch(setCategory(undefined));
+			}
 		}
 		deleteCategory.mutate(categoryId);
 	};
@@ -125,8 +136,13 @@ const SelectCategory: FC<SelectCategoryProps> = ({
 		const tempSelectedCategory = categories.data?.find(
 			(category) => category.id === selectedCategory?.id
 		);
-		setSelectedCategory(tempSelectedCategory);
-	}, [categories.data, selectedCategory?.id, setSelectedCategory]);
+		if (setSelectedCategory) {
+			setSelectedCategory(tempSelectedCategory);
+		} else {
+			dispatch(setCategory(tempSelectedCategory));
+		}
+		dispatch(setCategory(tempSelectedCategory));
+	}, [categories.data, selectedCategory?.id, setSelectedCategory, dispatch]);
 
 	return (
 		<Popover isLazy isOpen={isPopoverOpen} onClose={onPopoverClose} {...props}>
