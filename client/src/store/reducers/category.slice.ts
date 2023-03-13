@@ -1,14 +1,16 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Category } from "../../types/Category";
 
-const initialState: Category | undefined = {} as Category;
+const initialState: { selectedCategory: Category | undefined } = {
+	selectedCategory: undefined,
+};
 
 const categorySlice = createSlice({
 	name: "category",
 	initialState,
 	reducers: {
-		setCategory: (state, action) => {
-			return { ...state, ...action.payload };
+		setCategory: (state, action: PayloadAction<Category | undefined>) => {
+			state.selectedCategory = action.payload;
 		},
 	},
 });
