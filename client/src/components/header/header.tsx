@@ -57,7 +57,11 @@ const Header: FC = () => {
 
 			<Popover>
 				<PopoverTrigger>
-					<Button borderRadius="50%" p="0">
+					<Button
+						borderRadius="50%"
+						p="0"
+						aria-label="user info and logout button"
+					>
 						<FaUserAlt />
 					</Button>
 				</PopoverTrigger>
@@ -66,12 +70,7 @@ const Header: FC = () => {
 					<PopoverCloseButton />
 					<PopoverHeader>{user.user?.email}</PopoverHeader>
 					<PopoverBody display="flex" justifyContent="space-between">
-						<Button
-							aria-label="user info and logout button"
-							onClick={() => logOut.mutate()}
-						>
-							Logout
-						</Button>
+						<Button onClick={() => logOut.mutate()}>Logout</Button>
 						<ColorModeSwitcher />
 					</PopoverBody>
 				</PopoverContent>
