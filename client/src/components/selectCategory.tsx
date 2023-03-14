@@ -203,10 +203,9 @@ const SelectCategory: FC<SelectCategoryProps> = ({
 									aria-label={`Select ${category.name} category`}
 									onClick={(event) => selectCategoryHandler(event, category)}
 								>
-									{category.name}
+									<Box mr="auto">{category.name}</Box>
 									{editControl && (
 										<Button
-											ml="auto"
 											rounded="full"
 											p="0"
 											aria-label={`Edit ${category.name} category`}
