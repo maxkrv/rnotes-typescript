@@ -141,7 +141,6 @@ const SelectCategory: FC<SelectCategoryProps> = ({
 		} else {
 			dispatch(setCategory(tempSelectedCategory));
 		}
-		dispatch(setCategory(tempSelectedCategory));
 	}, [categories.data, selectedCategory?.id, setSelectedCategory, dispatch]);
 
 	return (
