@@ -1,5 +1,5 @@
 export interface IUser {
 	id: number;
 	email: string;
-	isActive: boolean;
+	isActivated: boolean;
 }
