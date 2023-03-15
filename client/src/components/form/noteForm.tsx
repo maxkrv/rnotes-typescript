@@ -105,7 +105,7 @@ const NoteForm: FC<NoteFormProps> = ({
 
 	return (
 		<FormControl as="form" onSubmit={handleSubmit(onSubmit)} {...props}>
-			<FormLabel mb="0">Name</FormLabel>
+			<FormLabel mb="0">Title</FormLabel>
 			<Controller
 				name="title"
 				defaultValue={editNote?.title ?? ""}
