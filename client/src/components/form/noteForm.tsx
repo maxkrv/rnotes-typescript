@@ -49,7 +49,7 @@ const NoteForm: FC<NoteFormProps> = ({
 
 	const [selectedCategory, setSelectedCategory] = useState<
 		Category | undefined
-	>(undefined);
+	>(editNote?.category || undefined);
 	const { colorMode } = useColorMode();
 	const queryClient = useQueryClient();
 	const toast = useToast();
@@ -119,7 +119,7 @@ const NoteForm: FC<NoteFormProps> = ({
 				Category
 			</FormLabel>
 			<SelectCategory
-				isHeader={true}
+				isHeader={false}
 				deleteControl={true}
 				editControl={false}
 				selectedCategory={selectedCategory}
@@ -132,9 +132,12 @@ const NoteForm: FC<NoteFormProps> = ({
 			<Controller
 				name="content"
 				control={control}
-				defaultValue={editNote?.content ?? ""}
 				render={({ field }) => (
-					<JoditReact config={config} defaultValue={field.value} {...field} />
+					<JoditReact
+						defaultValue={editNote?.content ?? ""}
+						config={config}
+						{...field}
+					/>
 				)}
 			/>
 
