@@ -44,6 +44,7 @@ const Layout: FC<ComponentPropsWithoutRef<"div">> = ({
 					flexDirection="column"
 					flex="1"
 					my="6"
+					overflow="hidden"
 					isFitted
 					variant="solid-rounded"
 					index={tabIndex}
