@@ -83,6 +83,8 @@ const SelectCategory: FC<SelectCategoryProps> = ({
 		mutationFn: (id: number) => categoryService.deleteCategoryById(id),
 		onSuccess: async () => {
 			await queryClient.invalidateQueries({ queryKey: ["categories"] });
+			await queryClient.invalidateQueries({ queryKey: ["notes"] });
+			await queryClient.invalidateQueries({ queryKey: ["todos"] });
 		},
 		onError: (error: any) =>
 			toast({
