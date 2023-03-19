@@ -119,6 +119,9 @@ class NoteService {
 					data: {
 						title,
 						content,
+						category: {
+							disconnect: true,
+						},
 					},
 					include: {
 						category: true,

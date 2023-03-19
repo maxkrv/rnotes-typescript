@@ -112,6 +112,9 @@ class TodoService {
 					data: {
 						title,
 						isDone,
+						category: {
+							disconnect: true,
+						},
 					},
 					include: {
 						category: true,
