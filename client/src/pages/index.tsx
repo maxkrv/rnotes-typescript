@@ -1,8 +1,8 @@
 import { NextPage } from "next";
 import {
-	Box,
 	Button,
 	Center,
+	Flex,
 	Heading,
 	Modal,
 	ModalCloseButton,
@@ -20,6 +20,7 @@ import Link from "next/link";
 import { useMutation } from "@tanstack/react-query";
 import { userService } from "../services/user.service";
 import { removeUser } from "../store/reducers/user.slice";
+import Socials from "../components/socials";
 
 const Home: NextPage = () => {
 	const dispatch = useAppDispatch();
@@ -45,24 +46,22 @@ const Home: NextPage = () => {
 
 	return (
 		<>
-			<Box
+			<Flex
 				h="100%"
-				display="flex"
 				flexDirection="column"
 				alignItems="center"
-				justifyContent="center"
+				justifyContent="space-between"
+				py="10px"
 			>
-				<Box position="absolute" top="6">
-					<ColorModeSwitcher />
-				</Box>
-				<Heading as="h1" size="3xl">
-					Rnotes
-				</Heading>
-				<Text fontSize="xl" textAlign="center">
-					Free, safe to-dos and notes. <br /> Login or Register to use an app.
-				</Text>
+				<ColorModeSwitcher />
 
-				<Box mt="10" display="flex" flexDirection="column">
+				<Flex mt="10" flexDirection="column" textAlign="center">
+					<Heading as="h1" size="3xl">
+						Rnotes
+					</Heading>
+					<Text fontSize="xl" textAlign="center" mt="5px" mb="50px">
+						Free, safe to-dos and notes. <br /> Login or Register to use an app.
+					</Text>
 					{user.isAuth ? (
 						<>
 							<Button as={Link} href="/notes">
@@ -83,8 +82,10 @@ const Home: NextPage = () => {
 							<Button onClick={onRegisterFormOpen}>Register</Button>
 						</>
 					)}
-				</Box>
-			</Box>
+				</Flex>
+
+				<Socials />
+			</Flex>
 
 			<Modal isCentered isOpen={isLoginFormOpen} onClose={onLoginFormClose}>
 				<ModalOverlay />
