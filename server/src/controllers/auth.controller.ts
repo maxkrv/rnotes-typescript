@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import AuthService from "../services/auth.service";
 import { CreateAuthDto } from "../dtos/auth.dto";
-import { CLIENT_URL } from "../config";
 import { validationResult } from "express-validator";
 import { HttpException } from "../exceptions/HttpExeption";
 
@@ -72,7 +71,7 @@ class AuthController {
 		try {
 			await AuthService.activate(req.params.link);
 
-			return res.redirect(CLIENT_URL as string);
+			return res.json({ message: "success" });
 		} catch (error) {
 			next(error);
 		}

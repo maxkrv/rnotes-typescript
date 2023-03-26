@@ -5,7 +5,7 @@ import { HttpException } from "../exceptions/HttpExeption";
 import TokenService from "./token.service";
 import { CreateAuthDto } from "../dtos/auth.dto";
 import MailService from "./mail.service";
-import { SERVER_URL } from "../config";
+import { CLIENT_URL } from "../config";
 import { UserDto } from "../dtos/user.dto";
 
 class AuthService {
@@ -29,7 +29,7 @@ class AuthService {
 
 		await MailService.sendActivationMail(
 			userData.email,
-			`${SERVER_URL}/api/activate/${activationLink}`
+			`${CLIENT_URL}/activate/${activationLink}`
 		);
 		const tokens = TokenService.generateTokens({
 			id: user.id,
