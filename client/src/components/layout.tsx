@@ -36,7 +36,7 @@ const Layout: FC<ComponentPropsWithoutRef<"div">> = ({
 			{...props}
 		>
 			{pathname !== "/" && <Header />}
-			{pathname === "/" ? (
+			{pathname === "/" || pathname === "/activate/[link]" ? (
 				children
 			) : (
 				<Tabs
