@@ -57,6 +57,12 @@ const FormWrapper: FC<FormWrapperProps> = ({ formAction }) => {
 		onSuccess: (data) => {
 			dispatch(setUser(data));
 			router.push("/notes");
+			toast({
+				title: "You have successfully registered, please activate your account",
+				status: "success",
+				isClosable: true,
+				duration: 5000,
+			});
 		},
 		onError: (error) =>
 			toast({
