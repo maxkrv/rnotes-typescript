@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NextPage } from "next";
 import AppHeader from "../components/appHeader";
 import {
@@ -11,6 +11,7 @@ import {
 	ModalContent,
 	ModalHeader,
 	ModalOverlay,
+	Skeleton,
 	Stack,
 	Text,
 	useColorModeValue,
@@ -23,9 +24,13 @@ import { formatDate } from "../utils/formateDate";
 import { Todo } from "../types/Todo";
 import { MdDelete, MdDone } from "react-icons/md";
 import TodoForm from "../components/form/todoForm";
+import { useRouter } from "next/router";
+import { useAppSelector } from "../hooks/redux";
 
 const Todos: NextPage = () => {
 	const queryClient = useQueryClient();
+	const router = useRouter();
+	const user = useAppSelector((state) => state.user);
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const bg = useColorModeValue("gray.400", "gray.600");
 
@@ -77,13 +82,27 @@ const Todos: NextPage = () => {
 		onClose();
 	};
 
+	useEffect(() => {
+		if (user.isAuth === false && typeof window !== "undefined") {
+			router.push("/");
+		}
+	}, [router, user.isAuth]);
+
 	return (
 		<>
 			<AppHeader formAction="todo" style={{ marginBottom: "10px" }} />
 
 			<Scrollbars universal style={{ height: "calc(100% - 50px)" }}>
 				<Stack>
-					{!todos.data?.length ? (
+					{todos.isLoading && (
+						<>
+							{[...Array(5)].map((_, index) => (
+								<Skeleton key={index} height="60px" />
+							))}
+						</>
+					)}
+
+					{!todos.isLoading && !todos.data?.length ? (
 						<Text textAlign="center">
 							You don&apos;t have any to-dos. <br /> Create one by clicking on
 							the button above.

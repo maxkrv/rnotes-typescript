@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NextPage } from "next";
 import AppHeader from "../components/appHeader";
 import {
@@ -9,6 +9,7 @@ import {
 	ModalContent,
 	ModalHeader,
 	ModalOverlay,
+	Skeleton,
 	Stack,
 	Text,
 	useColorModeValue,
@@ -22,9 +23,12 @@ import { Note } from "../types/Note";
 import NoteForm from "../components/form/noteForm";
 import { MdDelete } from "react-icons/md";
 import { formatDate } from "../utils/formateDate";
+import { useRouter } from "next/router";
 
 const Notes: NextPage = () => {
 	const queryClient = useQueryClient();
+	const router = useRouter();
+	const user = useAppSelector((state) => state.user);
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const bg = useColorModeValue("gray.400", "gray.600");
 
@@ -72,12 +76,25 @@ const Notes: NextPage = () => {
 		onClose();
 	};
 
+	useEffect(() => {
+		if (user.isAuth === false && typeof window !== "undefined") {
+			router.push("/");
+		}
+	}, [router, user.isAuth]);
+
 	return (
 		<>
 			<AppHeader formAction="note" style={{ marginBottom: "10px" }} />
 
 			<Scrollbars universal style={{ height: "calc(100% - 50px)" }}>
 				<Stack>
+					{notes.isLoading && (
+						<>
+							{[...Array(5)].map((_, index) => (
+								<Skeleton key={index} height="60px" />
+							))}
+						</>
+					)}
 					{!notes.isLoading && !notes.data?.length ? (
 						<Text textAlign="center">
 							You don&apos;t have any notes. <br /> Create one by clicking on
