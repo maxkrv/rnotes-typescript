@@ -4,7 +4,7 @@ import { useAppDispatch } from "../hooks/redux";
 import { AuthResponse } from "../types/Auth";
 import { useMutation } from "@tanstack/react-query";
 import { setUser } from "../store/reducers/user.slice";
-import { Box, Spinner } from "@chakra-ui/react";
+import { Spinner } from "@chakra-ui/react";
 
 const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
 	const dispatch = useAppDispatch();
@@ -32,15 +32,16 @@ const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
 	return (
 		<>
 			{isLoading ? (
-				<Box
-					position="absolute"
-					top="50%"
-					left="50%"
-					translateX="-50%"
-					translateY="-50%"
+				<div
+					style={{
+						position: "absolute",
+						top: "50%",
+						left: "50%",
+						transform: "translate(-50%, -50%)",
+					}}
 				>
 					<Spinner />
-				</Box>
+				</div>
 			) : (
 				children
 			)}
